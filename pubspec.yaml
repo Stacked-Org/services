@@ -1,7 +1,9 @@
 name: stacked_services
 description: A package that contains some default implementations of services required for a cleaner implementation of the Stacked Architecture.
 version: 0.9.10
-homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_services
+homepage: https://stacked.filledstacks.com/
+repository: https://github.com/Stacked-Org/services.git
+issue_tracker: https://github.com/Stacked-Org/framework/issues
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
