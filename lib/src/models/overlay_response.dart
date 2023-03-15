@@ -23,13 +23,11 @@ class OverlayResponse<T> {
 class DialogResponse<T> extends OverlayResponse<T> {
   DialogResponse({
     bool confirmed = false,
-    @Deprecated('Prefer to use `data` and pass in a generic type.')
+    @Deprecated('Prefer to use `data` and pass in a generic type. ResponseData has no effect anymore')
         dynamic responseData,
     T? data,
   }) : super(
           confirmed: confirmed,
-          // ignore: deprecated_member_use_from_same_package
-          responseData: responseData,
           data: data,
         );
 }
@@ -38,13 +36,11 @@ class DialogResponse<T> extends OverlayResponse<T> {
 class SheetResponse<T> extends OverlayResponse<T> {
   SheetResponse({
     bool confirmed = false,
-    @Deprecated('Prefer to use `data` and pass in a generic type.')
+    @Deprecated('Prefer to use `data` and pass in a generic type.  ResponseData has no effect anymore')
         dynamic responseData,
     T? data,
   }) : super(
           confirmed: confirmed,
-          // ignore: deprecated_member_use_from_same_package
-          responseData: responseData,
           data: data,
         );
 }

@@ -1,83 +1,57 @@
-## 0.9.10
+## 1.0.0
+
+### Features
+
+Adds a new RouterService which uses Navigator 2.0. This is the default router used when generating code from the CLI web template
+
+## 0.9.9+1
 
 - Updates DialogBuider and SheetBuilder typedefs
 
 ## 0.9.9
-
 - Adds all properties to the show snackbar cofig
 
 ## 0.9.8
-
 - Fixes #749 by executing onTap using `?`
 
 ## 0.9.7
-
 - Adds navigation transition type noTransition to the navigation Service to allow for navigation with no transition
-
 ## 0.9.6
-
-- Fixes the snackbarConfig.textColor to work as intended - a default color for all the text in a snackbar unless otherwise specified
-
+- Fixes the snackbarConfig.textColor to work as intended - a default color for all the text in a snackbar unless otherwise specified 
 ## 0.9.5
-
 - Adds `closeSnackbar` method to be able to close the snackbar programmatically
 - Removes nullability on the `isSnackbarOpen` getter
-
 ## 0.9.4
-
 - Adds `id` to the `popUntil` function in `NavigationService` to allow for nested navigation
-
 ## 0.9.3
-
 - Only make arguments map when transition is available
 - Fixes [#656](https://github.com/FilledStacks/stacked/issues/656)
-
 ## 0.9.2
-
 - Expose the `routeName` property in `navigateWithTransition` and `replaceWithTransition` methods to allow route naming to conform with the routes in the navigation stack
-
 ## 0.9.1
-
 - Hide the `message` widget in `showCustomSnackBar` when the message color is null and message is empty
-
 ## 0.9.0
-
 - ⚠️ Break Change ⚠️: Removed the following deprecated code from snackbar_service
   - `navigatorKey` getter
   - `registerCustomSnackbarconfig` method
   - `customData` parameter from `showCustomSnackBar` method
-
 ## 0.8.25
-
 - Added clearStackAndShowView to clear stack and show widget directly
-
 ## 0.8.24
-
 - Flutter v3 compatibility
-
 ## 0.8.22+2
-
 - Update documentation.
-
 ## 0.8.22+1
-
 - Adds Breaking change indication below.
-
 ## 0.8.22
-
 - Fix navigation service
 - Deprecate: transition and transitionClass and defaultTransition argument
 - Update the example app
 - Replace deprecated documentaion with new one
-
 ## 0.8.21
-
 - Minor fix
-
 ## 0.8.20
-
 - ⚠️ Break Change ⚠️: Remove the export of the Get package to hide its global variables
-
 ## 0.8.19
 
 - Adds `titleTextStyle` and `messageTextStyle` to `showCustomSnackbar` to allow custom textstyles for snackbars.
@@ -105,11 +79,9 @@
 ## 0.8.15
 
 ### Bottom Sheet Unique Name
-
 When showing a bottom sheet we'll now give it a uique route name based on the properties passed in. The format of this will differ between the general and custom.
-
-- general: `general\_{md5hashOfTitleAndDescription}
-- custom: `variant\_{md5HashOfTitleDescriptionMainButtonTitleSecondaryButtonTitle}
+- general: `general_{md5hashOfTitleAndDescription}
+- custom: `variant_{md5HashOfTitleDescriptionMainButtonTitleSecondaryButtonTitle}
 
 The expected output of a bottom sheet will look like this
 

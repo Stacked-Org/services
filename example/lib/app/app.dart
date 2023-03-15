@@ -29,5 +29,6 @@ import '../ui/views/second_screen.dart';
   ],
 )
 class App {
-  /** This class has no puporse besides housing the annotation that generates the required functionality **/
+  /// This class has no puporse besides housing the annotation that generates the required functionality
+  
 }

@@ -80,8 +80,6 @@ class DialogRequest<T> extends OverlayRequest<T> {
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
-          // ignore: deprecated_member_use_from_same_package
-          customData: customData,
           description: description,
           hasImage: hasImage,
           imageUrl: imageUrl,
@@ -116,8 +114,6 @@ class SheetRequest<T> extends OverlayRequest<T> {
     dynamic variant,
   }) : super(
           additionalButtonTitle: additionalButtonTitle,
-          // ignore: deprecated_member_use_from_same_package
-          customData: customData,
           description: description,
           hasImage: hasImage,
           imageUrl: imageUrl,
