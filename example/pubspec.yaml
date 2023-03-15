@@ -26,14 +26,6 @@ dependencies:
   stacked: 
   stacked_shared:
   stacked_services: 
-  
-dependency_overrides: 
-  stacked:
-    path: ../../stacked
-  stacked_services:
-    path: ../
-  stacked_shared:
-    path: ../../core
 
 dev_dependencies:
   flutter_test:
