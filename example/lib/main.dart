@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_services_example/app/app.locator.dart';

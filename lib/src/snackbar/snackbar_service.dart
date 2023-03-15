@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stacked_core/stacked_core.dart' as sc;
+import 'package:stacked_shared/stacked_shared.dart' as sc;
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
 
@@ -120,7 +120,7 @@ class SnackbarService {
       showProgressIndicator: _snackbarConfig?.showProgressIndicator,
       progressIndicatorController: _snackbarConfig?.progressIndicatorController,
       progressIndicatorBackgroundColor:
-      _snackbarConfig?.progressIndicatorBackgroundColor,
+          _snackbarConfig?.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: _snackbarConfig?.progressIndicatorValueColor,
       snackStyle: _snackbarConfig?.snackStyle.toGet,
       forwardAnimationCurve: _snackbarConfig?.forwardAnimationCurve,
@@ -237,7 +237,7 @@ class SnackbarService {
     if (snackbarConfig.instantInit) {
       return getBar.show();
     } else {
-      Completer completer = new Completer();
+      Completer completer = Completer();
       sc.ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) async {
         final result = getBar.show();
         completer.complete(result);
