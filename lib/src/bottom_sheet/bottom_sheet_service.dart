@@ -148,6 +148,7 @@ class BottomSheetService {
           completeSheet,
         ),
       ),
+      barrierColor: barrierColor,
       isDismissible: barrierDismissible,
       isScrollControlled: isScrollControlled,
       enableDrag: barrierDismissible && enableDrag,
