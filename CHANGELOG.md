@@ -1,7 +1,3 @@
-## 1.0.1
-
-- Add barrierColor property to custom bottomSheet Config
-
 ## 1.0.0
 
 ### Features
