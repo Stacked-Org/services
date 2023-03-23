@@ -1,3 +1,10 @@
+## [0.9.11](https://github.com/Stacked-Org/services/compare/v0.9.10...v0.9.11) (2023-03-23)
+
+
+### Bug Fixes
+
+* Add barrierColor property to custom bottom sheet implementation ([66abb01](https://github.com/Stacked-Org/services/commit/66abb0172f6bb5b42e62fbb0ebe3e6709f1bb542))
+
 ## 1.0.0
 
 ### Features
