@@ -33,11 +33,11 @@ class DialogResponse<T> extends OverlayResponse<T> {
 
   @override
   bool operator ==(Object other) =>
-    identical(this, other) ||
-    other is DialogResponse<T> &&
-    runtimeType == other.runtimeType &&
-    confirmed == other.confirmed &&
-    data == data;
+      identical(this, other) ||
+      other is DialogResponse<T> &&
+          runtimeType == other.runtimeType &&
+          confirmed == other.confirmed &&
+          data == data;
 
   @override
   int get hashCode => Object.hash(confirmed, data);
