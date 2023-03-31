@@ -1,3 +1,10 @@
+## [0.9.12](https://github.com/Stacked-Org/services/compare/v0.9.11...v0.9.12) (2023-03-31)
+
+
+### Bug Fixes
+
+* override equality operators to allow unit test comparison ([8f09fe2](https://github.com/Stacked-Org/services/commit/8f09fe20b1777c39b30ad68b33122ad48e713ad5))
+
 ## [0.9.11](https://github.com/Stacked-Org/services/compare/v0.9.10...v0.9.11) (2023-03-23)
 
 
