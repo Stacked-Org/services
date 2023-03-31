@@ -30,6 +30,17 @@ class DialogResponse<T> extends OverlayResponse<T> {
           confirmed: confirmed,
           data: data,
         );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DialogResponse<T> &&
+          runtimeType == other.runtimeType &&
+          confirmed == other.confirmed &&
+          data == data;
+
+  @override
+  int get hashCode => Object.hash(confirmed, data);
 }
 
 /// The response returned from awaiting a call on the [BottomSheetService]
