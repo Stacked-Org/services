@@ -1,3 +1,10 @@
+# [0.10.0](https://github.com/Stacked-Org/services/compare/v0.9.12...v0.10.0) (2023-04-10)
+
+
+### Features
+
+* Add the missing button color parameters to showConfirmationDialog ([#14](https://github.com/Stacked-Org/services/issues/14)) ([dea4e87](https://github.com/Stacked-Org/services/commit/dea4e87a41f65f7418636d8df9ef52b46e5ce1f3))
+
 ## [0.9.12](https://github.com/Stacked-Org/services/compare/v0.9.11...v0.9.12) (2023-03-31)
 
 
