@@ -237,7 +237,9 @@ class DialogService {
     String? title,
     String? description,
     String cancelTitle = 'Cancel',
+    Color? cancelTitleColor,
     String confirmationTitle = 'Ok',
+    Color? confirmationTitleColor,
     bool barrierDismissible = false,
 
     /// Indicates which [DialogPlatform] to show.
@@ -249,7 +251,9 @@ class DialogService {
         title: title,
         description: description,
         buttonTitle: confirmationTitle,
+        buttonTitleColor: confirmationTitleColor,
         cancelTitle: cancelTitle,
+        cancelTitleColor: cancelTitleColor,
         dialogPlatform: dialogPlatform,
         barrierDismissible: barrierDismissible,
       );
