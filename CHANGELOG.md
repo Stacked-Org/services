@@ -1,3 +1,15 @@
+## [1.0.1](https://github.com/Stacked-Org/services/compare/v1.0.0...v1.0.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* changelog history ([#15](https://github.com/Stacked-Org/services/issues/15)) ([16c7328](https://github.com/Stacked-Org/services/commit/16c732880fe05a3209ec9dcc2b6b6a7bea411c02))
+
+
+### Reverts
+
+* Revert "ci: remove token for checkout action" (#17) ([aa909f6](https://github.com/Stacked-Org/services/commit/aa909f667b1ff29453a5d4c7ab2fe3208424e585)), closes [#17](https://github.com/Stacked-Org/services/issues/17) [#16](https://github.com/Stacked-Org/services/issues/16)
+
 # [0.10.0](https://github.com/Stacked-Org/services/compare/v0.9.12...v0.10.0) (2023-04-10)
 
 
