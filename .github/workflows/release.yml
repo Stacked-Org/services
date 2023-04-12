@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.REPO_DEPLOYMENT_TOKEN }}
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
