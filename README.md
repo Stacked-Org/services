@@ -2,6 +2,10 @@
 
 Provides some essential services to aid in implementing the Stacked architecture. These services are only here to reduce boilerplate code for the users of the Stacked Architecture that uses the architecture as instructed by FilledStacks on the architecture series.
 
+## Git Conventional Commits
+
+Since version `1.0.1` we will try to stick with **Conventional Commits** specification.
+
 ## Migration from 0.5.x -> 0.6.x
 
 - The custom builder function has changed for the `DialogService` instead of using `registerCustomDialogBuilder` you should now create a map of builders and pass it to `registerCustomDialogBuilders`.
