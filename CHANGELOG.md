@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/Stacked-Org/services/compare/v1.0.1...v1.0.2) (2023-04-14)
+
+
+### Bug Fixes
+
+* Adds back function on routing service ([8c70922](https://github.com/Stacked-Org/services/commit/8c70922037bba8649057ab791e0ad4f72a6453c2))
+* Makes result named ([df5c0db](https://github.com/Stacked-Org/services/commit/df5c0dbd603731d8a740efd30a58a1dae4b4cd00))
+
 ## [1.0.1](https://github.com/Stacked-Org/services/compare/v1.0.0...v1.0.1) (2023-04-12)
 
 
