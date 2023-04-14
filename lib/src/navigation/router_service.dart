@@ -73,6 +73,9 @@ class RouterService {
 
   Future<bool> pop<T extends Object?>([T? result]) => router.pop(result);
 
+  /// An alias for pop for better readability
+  Future<bool> back<T extends Object?>([T? result]) => router.pop(result);
+
   RoutingController topMostRouter({bool ignorePagelessRoutes = false}) =>
       router.topMostRouter(
         ignorePagelessRoutes: ignorePagelessRoutes,
