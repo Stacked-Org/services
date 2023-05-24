@@ -184,8 +184,9 @@ class DialogService {
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
     String barrierLabel = '',
-    @Deprecated('Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
-        dynamic customData,
+    @Deprecated(
+        'Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
+    dynamic customData,
     R? data,
   }) {
     assert(
