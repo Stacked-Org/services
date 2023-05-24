@@ -125,7 +125,7 @@ class DialogService {
               key: Key('dialog_touchable_cancel'),
               textChildKey: Key('dialog_text_cancelButtonText'),
               dialogPlatform: dialogPlatform,
-              text: cancelTitle!,
+              text: cancelTitle,
               cancelBtnColor: cancelTitleColor,
               isCancelButton: true,
               onPressed: () {
