@@ -161,7 +161,7 @@ class SnackbarService {
     final hasMainButtonBuilder = mainButtonBuilder != null;
 
     final mainButtonWidget = hasMainButtonBuilder
-        ? mainButtonBuilder!(mainButtonTitle, onMainButtonTapped)
+        ? mainButtonBuilder(mainButtonTitle, onMainButtonTapped)
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
             mainButtonStyle: snackbarConfig.mainButtonStyle ?? mainButtonStyle,
