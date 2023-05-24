@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Stacked-Org/services/compare/v1.0.2...v1.0.3) (2023-05-24)
+
+
+### Bug Fixes
+
+* use push instead of navigate on router service ([#19](https://github.com/Stacked-Org/services/issues/19)) ([88b625b](https://github.com/Stacked-Org/services/commit/88b625b6531b31c6220e99fc05c2756899f081e0))
+
 ## [1.0.2](https://github.com/Stacked-Org/services/compare/v1.0.1...v1.0.2) (2023-04-14)
 
 
