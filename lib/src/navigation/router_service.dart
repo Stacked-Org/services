@@ -17,14 +17,14 @@ class RouterService {
     PageRouteInfo route, {
     OnNavigationFailure? onFailure,
   }) =>
-      router.navigate(route, onFailure: onFailure);
+      router.push(route, onFailure: onFailure);
 
   Future<void> navigateToPath({
     required String path,
     bool includePrefixMatches = false,
     OnNavigationFailure? onFailure,
   }) =>
-      router.navigateNamed(
+      router.pushNamed(
         path,
         includePrefixMatches: includePrefixMatches,
         onFailure: onFailure,
