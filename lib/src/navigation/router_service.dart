@@ -51,7 +51,8 @@ class RouterService {
 
   Future<void> clearStackAndShow(PageRouteInfo route,
       {OnNavigationFailure? onFailure}) {
-    return router.pushAll([route], onFailure: onFailure);
+    router.clear();
+    return router.navigate(route, onFailure: onFailure);
   }
 
   Future<void> clearStackAndShowView(
