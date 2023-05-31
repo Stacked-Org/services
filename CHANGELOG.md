@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/Stacked-Org/services/compare/v1.0.3...v1.0.4) (2023-05-26)
+
+
+### Bug Fixes
+
+* RouterService clearStackAndShow ([#18](https://github.com/Stacked-Org/services/issues/18)) ([a5b775d](https://github.com/Stacked-Org/services/commit/a5b775db8f5d4482bfffcb50a81355bfead35ab8))
+
 ## [1.0.3](https://github.com/Stacked-Org/services/compare/v1.0.2...v1.0.3) (2023-05-24)
 
 
