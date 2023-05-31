@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 /// Provides a service to perform
-class RouterService {
+class RouterService implements RouterServiceInterface {
   late RootStackRouter router;
 
   setRouter(RootStackRouter router) {
