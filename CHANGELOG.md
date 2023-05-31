@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Stacked-Org/services/compare/v1.0.4...v1.1.0) (2023-05-31)
+
+
+### Features
+
+* make RouterService to implements RouterServiceInterface ([#20](https://github.com/Stacked-Org/services/issues/20)) ([f12e33d](https://github.com/Stacked-Org/services/commit/f12e33d422d869566bd70875f85d58c1b3e35cb6))
+
 ## [1.0.4](https://github.com/Stacked-Org/services/compare/v1.0.3...v1.0.4) (2023-05-26)
 
 
