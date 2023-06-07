@@ -184,9 +184,9 @@ class DialogService {
     Color barrierColor = Colors.black54,
     bool barrierDismissible = false,
     String barrierLabel = '',
-    @Deprecated(
-        'Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
-    dynamic customData,
+    bool useSafeArea = true,
+    @Deprecated('Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
+        dynamic customData,
     R? data,
   }) {
     assert(
@@ -206,9 +206,9 @@ class DialogService {
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
-      pageBuilder: (BuildContext buildContext, _, __) => SafeArea(
-        key: Key('dialog_view'),
-        child: Builder(
+      pageBuilder: (BuildContext buildContext, _, __) {
+        final child = Builder(
+          key: useSafeArea ? null : Key('dialog_view'),
           builder: (BuildContext context) => customDialogUI!(
             context,
             DialogRequest<R>(
@@ -228,8 +228,10 @@ class DialogService {
             ),
             completeDialog,
           ),
-        ),
-      ),
+        );
+        if (!useSafeArea) return child;
+        return SafeArea(key: Key('dialog_view'), child: child);
+      },
     );
   }
 
