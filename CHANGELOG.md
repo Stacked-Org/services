@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Stacked-Org/services/compare/v1.1.0...v1.1.1) (2023-06-22)
+
+
+### Bug Fixes
+
+* bind back method to navigateBack method ([#23](https://github.com/Stacked-Org/services/issues/23)) ([d7975c9](https://github.com/Stacked-Org/services/commit/d7975c99b2861dba64550b708a2e7ec18b8f2c64)), closes [#22](https://github.com/Stacked-Org/services/issues/22)
+
 # [1.1.0](https://github.com/Stacked-Org/services/compare/v1.0.4...v1.1.0) (2023-05-31)
 
 
