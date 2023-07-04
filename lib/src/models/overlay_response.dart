@@ -14,7 +14,7 @@ class OverlayResponse<T> {
   OverlayResponse({
     this.confirmed = false,
     @Deprecated('Prefer to use `data` and pass in a generic type.')
-    this.responseData,
+        this.responseData,
     this.data,
   });
 }
@@ -23,9 +23,8 @@ class OverlayResponse<T> {
 class DialogResponse<T> extends OverlayResponse<T> {
   DialogResponse({
     bool confirmed = false,
-    @Deprecated(
-        'Prefer to use `data` and pass in a generic type. ResponseData has no effect anymore')
-    dynamic responseData,
+    @Deprecated('Prefer to use `data` and pass in a generic type. ResponseData has no effect anymore')
+        dynamic responseData,
     T? data,
   }) : super(
           confirmed: confirmed,
@@ -48,9 +47,8 @@ class DialogResponse<T> extends OverlayResponse<T> {
 class SheetResponse<T> extends OverlayResponse<T> {
   SheetResponse({
     bool confirmed = false,
-    @Deprecated(
-        'Prefer to use `data` and pass in a generic type.  ResponseData has no effect anymore')
-    dynamic responseData,
+    @Deprecated('Prefer to use `data` and pass in a generic type.  ResponseData has no effect anymore')
+        dynamic responseData,
     T? data,
   }) : super(
           confirmed: confirmed,
