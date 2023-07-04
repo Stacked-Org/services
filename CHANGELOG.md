@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Stacked-Org/services/compare/v1.1.1...v1.2.0) (2023-07-04)
+
+
+### Features
+
+* add `useSafeArea` to `showCustomDialog` method in `DialogService` ([#21](https://github.com/Stacked-Org/services/issues/21)) ([bfaa6b0](https://github.com/Stacked-Org/services/commit/bfaa6b0926bb904ceec63c4ccb5d84f9b2f23418))
+
 ## [1.1.1](https://github.com/Stacked-Org/services/compare/v1.1.0...v1.1.1) (2023-06-22)
 
 
