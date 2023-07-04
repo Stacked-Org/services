@@ -30,8 +30,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  stacked_generator: ^0.6.5
+  stacked_generator:
   build_runner: ^2.1.11
+
+dependency_overrides:
+  stacked_services:
+    path: ../
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
