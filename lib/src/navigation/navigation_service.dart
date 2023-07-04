@@ -59,9 +59,8 @@ class NavigationService {
     Duration? defaultDurationTransition,
     bool? defaultGlobalState,
     Transition? defaultTransitionStyle,
-    @Deprecated(
-        'Prefer to use the defaultTransitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    String? defaultTransition,
+    @Deprecated('Prefer to use the defaultTransitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
+        String? defaultTransition,
   }) {
     G.Get.config(
         enableLog: enableLog,
@@ -91,18 +90,16 @@ class NavigationService {
   Future<T?>? navigateWithTransition<T>(
     Widget page, {
     bool? opaque,
-    @Deprecated(
-        'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    String transition = '',
+    @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
+        String transition = '',
     Duration? duration,
     bool? popGesture,
     int? id,
     Curve? curve,
     bool fullscreenDialog = false,
     bool preventDuplicates = true,
-    @Deprecated(
-        'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    Transition? transitionClass,
+    @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
+        Transition? transitionClass,
     Transition? transitionStyle,
     String? routeName,
   }) {
@@ -140,18 +137,16 @@ class NavigationService {
   Future<T?>? replaceWithTransition<T>(
     Widget page, {
     bool? opaque,
-    @Deprecated(
-        'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    String transition = '',
+    @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
+        String transition = '',
     Duration? duration,
     bool? popGesture,
     int? id,
     Curve? curve,
     bool fullscreenDialog = false,
     bool preventDuplicates = true,
-    @Deprecated(
-        'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    Transition? transitionClass,
+    @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
+        Transition? transitionClass,
     Transition? transitionStyle,
     String? routeName,
   }) {
@@ -239,9 +234,8 @@ class NavigationService {
     bool fullscreenDialog = false,
     bool? popGesture,
     bool preventDuplicates = true,
-    @Deprecated(
-        'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    Transition? transition,
+    @Deprecated('Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
+        Transition? transition,
     Transition? transitionStyle,
   }) {
     return G.Get.to<T?>(
