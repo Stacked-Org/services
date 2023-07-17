@@ -41,6 +41,9 @@ class SnackbarConfig {
   /// Sets the duration of snack bar to be visible
   Duration duration;
 
+  /// Auto close the snackbar when main button tapped
+  bool closeSnackbarOnMainButtonTapped;
+
   ButtonStyle? mainButtonStyle;
   List<BoxShadow>? boxShadows;
   Gradient? backgroundGradient;
@@ -72,6 +75,7 @@ class SnackbarConfig {
     this.messageColor,
     this.messageTextStyle,
     this.mainButtonTextColor,
+    this.closeSnackbarOnMainButtonTapped = false,
     this.mainButtonStyle,
     this.instantInit = false,
     this.shouldIconPulse = true,
