@@ -3,7 +3,8 @@
 
 ### Features
 
-* add dynamic duration support for `Snackbar` ([#29](https://github.com/Stacked-Org/services/issues/29)) ([ce08f5a](https://github.com/Stacked-Org/services/commit/ce08f5afb663d8a0010ccdae4ac1d24bdb3c6d68))
+* add dynamic duration support for `Snackbar` ([#26](https://github.com/Stacked-Org/services/issues/26))
+* add auto close `Snackbar` ([#27](https://github.com/Stacked-Org/services/issues/27))
 
 # [1.2.0](https://github.com/Stacked-Org/services/compare/v1.1.1...v1.2.0) (2023-07-04)
 
