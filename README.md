@@ -404,6 +404,28 @@ _snackbarService.showCustomSnackBar(
 
 The snackbar service does not cover every scenario at the moment, especially for adding multiple actions or using icons. If you're looking for those kind of features please make an issue or make a PR for the functionality. I would greatly appreciate it.
 
+### Auto close snackbar when tapped main button
+
+To achieve the same behavior just like Flutter's snackbar where the snackbar will close when tapped the action button in the snackbar, you can set `closeSnackbarOnMainButtonTapped` to `true` in the `SnackbarConfig`.
+
+```dart
+service.registerSnackbarConfig(
+  SnackbarConfig(
+    closeSnackbarOnMainButtonTapped: true,
+  ),
+);
+```
+```dart
+service.registerCustomSnackbarConfig(
+  variant: SnackbarType.autoCloseMainButtonTapped,
+  config: SnackbarConfig(
+    snackPosition: SnackPosition.TOP,
+    closeSnackbarOnMainButtonTapped: true,
+    borderRadius: 1,
+  ),
+);
+```
+
 ## BottomSheet Service
 
 This service, similar to the others above, allows the user to show a `BottomSheet` from the same place they handle their business logic. It's calls that can be awaited on for a result returned by the user. This makes writing your business logic much easier in the long run.

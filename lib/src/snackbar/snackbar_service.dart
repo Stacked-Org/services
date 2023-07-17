@@ -56,7 +56,7 @@ class SnackbarService {
     String title = '',
     required String message,
     Function(dynamic)? onTap,
-    Duration duration = const Duration(seconds: 3),
+    Duration? duration,
     String? mainButtonTitle,
     void Function()? onMainButtonTapped,
   }) {
@@ -101,7 +101,7 @@ class SnackbarService {
       onTap: onTap,
       barBlur: _snackbarConfig?.barBlur,
       isDismissible: _snackbarConfig?.isDismissible ?? true,
-      duration: duration,
+      duration: duration ?? _snackbarConfig?.duration,
       snackPosition: _snackbarConfig?.snackPosition.toGet,
       backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800],
       margin: _snackbarConfig?.margin ??
@@ -142,7 +142,7 @@ class SnackbarService {
     ButtonStyle? mainButtonStyle,
     void Function()? onMainButtonTapped,
     Function? onTap,
-    Duration duration = const Duration(seconds: 1),
+    Duration? duration,
   }) async {
     final snackbarConfigSupplied = _customSnackbarConfigs[variant];
     final snackbarConfigBuilder = _customSnackbarConfigBuilders[variant];
@@ -161,7 +161,13 @@ class SnackbarService {
     final hasMainButtonBuilder = mainButtonBuilder != null;
 
     final mainButtonWidget = hasMainButtonBuilder
-        ? mainButtonBuilder(mainButtonTitle, onMainButtonTapped)
+        ? mainButtonBuilder(
+            mainButtonTitle,
+            () => _handleOnMainButtonTapped(
+              onMainButtonTapped,
+              snackbarConfig.closeSnackbarOnMainButtonTapped,
+            ),
+          )
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
             mainButtonStyle: snackbarConfig.mainButtonStyle ?? mainButtonStyle,
@@ -215,7 +221,7 @@ class SnackbarService {
       backgroundGradient: snackbarConfig.backgroundGradient,
       mainButton: mainButtonWidget,
       onTap: (snackbar) => onTap?.call(),
-      duration: duration,
+      duration: duration ?? snackbarConfig.duration,
       isDismissible: snackbarConfig.isDismissible,
       dismissDirection: snackbarConfig.dismissDirection,
       showProgressIndicator: snackbarConfig.showProgressIndicator,
@@ -274,7 +280,22 @@ class SnackbarService {
               config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
         ),
       ),
-      onPressed: onMainButtonTapped,
+      onPressed: () => _handleOnMainButtonTapped(
+        onMainButtonTapped,
+        config?.closeSnackbarOnMainButtonTapped ?? false,
+      ),
     );
+  }
+
+  void _handleOnMainButtonTapped(
+    void Function()? onMainButtonTapped,
+    bool closeSnackbarOnMainButtonTapped,
+  ) {
+    if (onMainButtonTapped != null) {
+      onMainButtonTapped();
+      if (closeSnackbarOnMainButtonTapped) {
+        closeSnackbar();
+      }
+    }
   }
 }
