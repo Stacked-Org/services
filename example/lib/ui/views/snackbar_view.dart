@@ -88,6 +88,30 @@ class SnackbarView extends StatelessWidget {
               'Show Green and Red Snackbar',
             ),
           ),
+          Text(
+            'Press the button below and press the \'Undo\' button to auto close the snackbar when main button tapped',
+            softWrap: true,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
+          ),
+          OutlinedButton(
+            onPressed: () async {
+              _snackbarService.showCustomSnackBar(
+                variant: SnackbarType.autoCloseMainButtonTapped,
+                message: 'Snackbar auto close when tapped Undo',
+                duration: Duration(seconds: 5),
+                onTap: (_) {
+                  print('snackbar tapped');
+                },
+                mainButtonTitle: 'Undo',
+                onMainButtonTapped: () =>
+                    print('Undo the action and closing the snackbar'),
+              );
+            },
+            child: Text(
+              'Show auto close snackbar',
+            ),
+          ),
         ],
       ),
     );

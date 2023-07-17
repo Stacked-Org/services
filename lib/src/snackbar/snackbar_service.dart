@@ -161,7 +161,13 @@ class SnackbarService {
     final hasMainButtonBuilder = mainButtonBuilder != null;
 
     final mainButtonWidget = hasMainButtonBuilder
-        ? mainButtonBuilder(mainButtonTitle, onMainButtonTapped)
+        ? mainButtonBuilder(
+            mainButtonTitle,
+            () => _handleOnMainButtonTapped(
+              onMainButtonTapped,
+              snackbarConfig.closeSnackbarOnMainButtonTapped,
+            ),
+          )
         : _getMainButtonWidget(
             mainButtonTitle: mainButtonTitle,
             mainButtonStyle: snackbarConfig.mainButtonStyle ?? mainButtonStyle,
@@ -274,7 +280,22 @@ class SnackbarService {
               config?.mainButtonTextColor ?? config?.textColor ?? Colors.white,
         ),
       ),
-      onPressed: onMainButtonTapped,
+      onPressed: () => _handleOnMainButtonTapped(
+        onMainButtonTapped,
+        config?.closeSnackbarOnMainButtonTapped ?? false,
+      ),
     );
+  }
+
+  void _handleOnMainButtonTapped(
+    void Function()? onMainButtonTapped,
+    bool closeSnackbarOnMainButtonTapped,
+  ) {
+    if (onMainButtonTapped != null) {
+      onMainButtonTapped();
+      if (closeSnackbarOnMainButtonTapped) {
+        closeSnackbar();
+      }
+    }
   }
 }

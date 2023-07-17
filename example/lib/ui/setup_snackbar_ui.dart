@@ -35,4 +35,28 @@ void setupSnackbarUi() {
       borderRadius: 1,
     ),
   );
+
+  service.registerCustomSnackbarConfig(
+    variant: SnackbarType.autoCloseMainButtonTapped,
+    config: SnackbarConfig(
+      snackPosition: SnackPosition.TOP,
+      closeSnackbarOnMainButtonTapped: true,
+      borderRadius: 1,
+    ),
+  );
+
+  service.registerCustomMainButtonBuilder(
+    variant: SnackbarType.autoCloseMainButtonTapped,
+    builder: (title, onTap) => TextButton(
+      child: Text(title ?? 'Undo'),
+      onPressed: () => onTap?.call(),
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white,
+        textStyle: TextStyle(
+          fontSize: 15,
+          decoration: TextDecoration.underline,
+        ),
+      ),
+    ),
+  );
 }

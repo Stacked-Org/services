@@ -38,6 +38,9 @@ class SnackbarConfig {
   /// Sets the color of the main button text regardless of [textColor]
   Color? mainButtonTextColor;
 
+  /// Auto close the snackbar when main button tapped
+  bool closeSnackbarOnMainButtonTapped;
+
   ButtonStyle? mainButtonStyle;
   List<BoxShadow>? boxShadows;
   Gradient? backgroundGradient;
@@ -69,6 +72,7 @@ class SnackbarConfig {
     this.messageColor,
     this.messageTextStyle,
     this.mainButtonTextColor,
+    this.closeSnackbarOnMainButtonTapped = false,
     this.mainButtonStyle,
     this.instantInit = false,
     this.shouldIconPulse = true,
