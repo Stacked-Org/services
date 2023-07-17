@@ -1,5 +1,6 @@
 # Stacked Services
 
+
 Provides some essential services to aid in implementing the Stacked architecture. These services are only here to reduce boilerplate code for the users of the Stacked Architecture that uses the architecture as instructed by FilledStacks on the architecture series.
 
 ## Git Conventional Commits
