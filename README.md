@@ -313,11 +313,33 @@ void setupSnackbarUi() {
   final service = locator<SnackbarService>();
 
   // Registers a config to be used when calling showSnackbar
-  service.registerSnackbarConfig(SnackbarConfig(
-    backgroundColor: Colors.red,
-    textColor: Colors.white,
-    mainButtonTextColor: Colors.black,
-  ));
+  service.registerSnackbarConfig(
+    snackbarConfig: SnackbarConfig(
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      mainButtonTextColor: Colors.black,
+    ),
+  );
+}
+```
+
+Or you can supply `SnackbarConfig`s to be used during light mode and dark mode. This example will set the background color and text color.
+
+```dart
+void setupSnackbarUi() {
+  final service = locator<SnackbarService>();
+
+  // Registers configs to be used when calling showSnackbar
+  service.registerSnackbarConfig(
+    snackbarConfigLight: SnackbarConfig(
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    ),
+    snackbarConfigDark: SnackbarConfig(
+      backgroundColor: Colors.white,
+      textColor: Colors.black,
+    ),
+  );
 }
 ```
 
@@ -331,7 +353,7 @@ void main() {
 }
 ```
 
-If you now execute the same showSnackbar function as above you'll see the background is red, text white and the action button has black text.
+If you now execute the same showSnackbar function as above you'll see your new custom style.
 
 ### Custom Styles
 
