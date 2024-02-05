@@ -35,6 +35,7 @@ class BottomSheetService {
     Duration? enterBottomSheetDuration,
     bool? ignoreSafeArea,
     bool useRootNavigator = false,
+    double elevation = 1,
   }) {
     return Get.bottomSheet<SheetResponse?>(
       Material(
@@ -51,6 +52,7 @@ class BottomSheetService {
       backgroundColor: Theme.of(Get.context!).brightness == Brightness.light
           ? Colors.white
           : Colors.grey[800],
+      elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
@@ -98,6 +100,7 @@ class BottomSheetService {
     String? additionalButtonTitle,
     bool takesInput = false,
     Color barrierColor = Colors.black54,
+    double elevation = 1,
     bool barrierDismissible = true,
     bool isScrollControlled = false,
     String barrierLabel = '',
@@ -149,6 +152,7 @@ class BottomSheetService {
         ),
       ),
       barrierColor: barrierColor,
+      elevation: elevation,
       isDismissible: barrierDismissible,
       isScrollControlled: isScrollControlled,
       enableDrag: barrierDismissible && enableDrag,
