@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/Stacked-Org/services/compare/v1.3.0...v1.4.0) (2024-02-08)
+
+
+### Features
+
+* add bottomsheet elevation property ([9d7eef6](https://github.com/Stacked-Org/services/commit/9d7eef641ebe545ed1580a2a4ca0009034114073))
+
 # [1.3.0](https://github.com/Stacked-Org/services/compare/v1.2.0...v1.3.0) (2023-07-17)
 
 
