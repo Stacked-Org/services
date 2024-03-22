@@ -23,7 +23,7 @@ class DialogService {
   Map<dynamic, DialogBuilder>? _dialogBuilders;
 
   void registerCustomDialogBuilders(Map<dynamic, DialogBuilder> builders) {
-    _dialogBuilders = builders;
+    _dialogBuilders = {...?_dialogBuilders, ...builders};
   }
 
   Map<dynamic, DialogBuilder> _customDialogBuilders =
