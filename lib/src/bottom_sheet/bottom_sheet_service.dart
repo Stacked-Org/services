@@ -20,7 +20,7 @@ class BottomSheetService {
   Map<dynamic, SheetBuilder>? _sheetBuilders;
 
   void setCustomSheetBuilders(Map<dynamic, SheetBuilder> builders) {
-    _sheetBuilders = builders;
+    _sheetBuilders = {...?_sheetBuilders, ...builders};
   }
 
   Future<SheetResponse?> showBottomSheet({
