@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Stacked-Org/services/compare/v1.4.0...v1.5.0) (2024-03-26)
+
+
+### Features
+
+* mutate bottom sheet and dialog builders ([#35](https://github.com/Stacked-Org/services/issues/35)) ([711dec5](https://github.com/Stacked-Org/services/commit/711dec56ee4b1009abebeef032e93fb20c167102))
+
 # [1.4.0](https://github.com/Stacked-Org/services/compare/v1.3.0...v1.4.0) (2024-02-08)
 
 
