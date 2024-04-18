@@ -74,7 +74,7 @@ class RouterService implements RouterServiceInterface {
 
   Future<bool> pop<T extends Object?>([T? result]) => router.pop(result);
 
-  void back<T extends Object?>({T? result}) => router.navigateBack();
+  void back<T extends Object?>({T? result}) => router.pop(result);
 
   RoutingController topMostRouter({bool ignorePagelessRoutes = false}) =>
       router.topMostRouter(
