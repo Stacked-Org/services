@@ -20,13 +20,30 @@ class SnackbarService {
       Map<dynamic, Widget Function(String?, Function?)?>();
 
   SnackbarConfig? _snackbarConfig;
+  SnackbarConfig? _snackbarConfigLight;
+  SnackbarConfig? _snackbarConfigDark;
 
   /// Checks if there is a snackbar open
   bool? get isOpen => Get.isSnackbarOpen;
 
-  /// Saves the [config] to be used for the [showSnackbar] function
-  void registerSnackbarConfig(SnackbarConfig config) =>
-      _snackbarConfig = config;
+  /// Saves the [snackbarConfig] or [snackbarConfigLight] and [snackbarConfigDark] to be used for the [showSnackbar] function.
+  /// Use either snackbarConfig or both snackbarConfigLight and snackbarConfigDark.
+  void registerSnackbarConfig({
+    SnackbarConfig? snackbarConfig,
+    SnackbarConfig? snackbarConfigLight,
+    SnackbarConfig? snackbarConfigDark,
+  }) {
+    assert(
+      (snackbarConfig != null)
+          ? (snackbarConfigLight == null && snackbarConfigDark == null)
+          : (snackbarConfigLight != null && snackbarConfigDark != null),
+      'You have to supply either snackbarConfig or both snackbarConfigLight and snackbarConfigDark.',
+    );
+
+    _snackbarConfig = snackbarConfig;
+    _snackbarConfigLight = snackbarConfigLight;
+    _snackbarConfigDark = snackbarConfigDark;
+  }
 
   /// Registers a builder that will be used when showing a matching variant value. The builder
   /// function takes in a [String] to display as the title and a `Function` to be used to the
@@ -60,10 +77,13 @@ class SnackbarService {
     String? mainButtonTitle,
     void Function()? onMainButtonTapped,
   }) {
+    final currentSnackbarConfig = _snackbarConfig ??
+        (Get.isDarkMode ? _snackbarConfigDark : _snackbarConfigLight);
+
     final mainButtonWidget = _getMainButtonWidget(
       mainButtonTitle: mainButtonTitle,
       onMainButtonTapped: onMainButtonTapped,
-      config: _snackbarConfig,
+      config: currentSnackbarConfig,
     );
 
     Get.snackbar(
@@ -74,13 +94,14 @@ class SnackbarService {
               title,
               key: Key('snackbar_text_title'),
               style: TextStyle(
-                color: _snackbarConfig?.titleColor ??
-                    _snackbarConfig?.textColor ??
+                color: currentSnackbarConfig?.titleColor ??
+                    currentSnackbarConfig?.textColor ??
                     Colors.white,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
-              textAlign: _snackbarConfig?.titleTextAlign ?? TextAlign.left,
+              textAlign:
+                  currentSnackbarConfig?.titleTextAlign ?? TextAlign.left,
             )
           : SizedBox.shrink(),
       messageText: message.isNotEmpty
@@ -88,47 +109,51 @@ class SnackbarService {
               message,
               key: Key('snackbar_text_message'),
               style: TextStyle(
-                color: _snackbarConfig?.messageColor ??
-                    _snackbarConfig?.textColor ??
+                color: currentSnackbarConfig?.messageColor ??
+                    currentSnackbarConfig?.textColor ??
                     Colors.white,
                 fontWeight: FontWeight.w300,
                 fontSize: 14,
               ),
-              textAlign: _snackbarConfig?.messageTextAlign ?? TextAlign.left,
+              textAlign:
+                  currentSnackbarConfig?.messageTextAlign ?? TextAlign.left,
             )
           : SizedBox.shrink(),
-      shouldIconPulse: _snackbarConfig?.shouldIconPulse,
+      shouldIconPulse: currentSnackbarConfig?.shouldIconPulse,
       onTap: onTap,
-      barBlur: _snackbarConfig?.barBlur,
-      isDismissible: _snackbarConfig?.isDismissible ?? true,
-      duration: duration ?? _snackbarConfig?.duration,
-      snackPosition: _snackbarConfig?.snackPosition.toGet,
-      backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800],
-      margin: _snackbarConfig?.margin ??
+      barBlur: currentSnackbarConfig?.barBlur,
+      isDismissible: currentSnackbarConfig?.isDismissible ?? true,
+      duration: duration ?? currentSnackbarConfig?.duration,
+      snackPosition: currentSnackbarConfig?.snackPosition.toGet,
+      backgroundColor:
+          currentSnackbarConfig?.backgroundColor ?? Colors.grey[800],
+      margin: currentSnackbarConfig?.margin ??
           const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
       mainButton: mainButtonWidget,
-      icon: _snackbarConfig?.icon,
-      maxWidth: _snackbarConfig?.maxWidth,
-      padding: _snackbarConfig?.padding,
-      borderRadius: _snackbarConfig?.borderRadius,
-      borderColor: _snackbarConfig?.borderColor,
-      borderWidth: _snackbarConfig?.borderWidth,
-      leftBarIndicatorColor: _snackbarConfig?.leftBarIndicatorColor,
-      boxShadows: _snackbarConfig?.boxShadows,
-      backgroundGradient: _snackbarConfig?.backgroundGradient,
-      dismissDirection: _snackbarConfig?.dismissDirection,
-      showProgressIndicator: _snackbarConfig?.showProgressIndicator,
-      progressIndicatorController: _snackbarConfig?.progressIndicatorController,
+      icon: currentSnackbarConfig?.icon,
+      maxWidth: currentSnackbarConfig?.maxWidth,
+      padding: currentSnackbarConfig?.padding,
+      borderRadius: currentSnackbarConfig?.borderRadius,
+      borderColor: currentSnackbarConfig?.borderColor,
+      borderWidth: currentSnackbarConfig?.borderWidth,
+      leftBarIndicatorColor: currentSnackbarConfig?.leftBarIndicatorColor,
+      boxShadows: currentSnackbarConfig?.boxShadows,
+      backgroundGradient: currentSnackbarConfig?.backgroundGradient,
+      dismissDirection: currentSnackbarConfig?.dismissDirection,
+      showProgressIndicator: currentSnackbarConfig?.showProgressIndicator,
+      progressIndicatorController:
+          currentSnackbarConfig?.progressIndicatorController,
       progressIndicatorBackgroundColor:
-          _snackbarConfig?.progressIndicatorBackgroundColor,
-      progressIndicatorValueColor: _snackbarConfig?.progressIndicatorValueColor,
-      snackStyle: _snackbarConfig?.snackStyle.toGet,
-      forwardAnimationCurve: _snackbarConfig?.forwardAnimationCurve,
-      reverseAnimationCurve: _snackbarConfig?.reverseAnimationCurve,
-      animationDuration: _snackbarConfig?.animationDuration,
-      overlayBlur: _snackbarConfig?.overlayBlur,
-      overlayColor: _snackbarConfig?.overlayColor,
-      userInputForm: _snackbarConfig?.userInputForm,
+          currentSnackbarConfig?.progressIndicatorBackgroundColor,
+      progressIndicatorValueColor:
+          currentSnackbarConfig?.progressIndicatorValueColor,
+      snackStyle: currentSnackbarConfig?.snackStyle.toGet,
+      forwardAnimationCurve: currentSnackbarConfig?.forwardAnimationCurve,
+      reverseAnimationCurve: currentSnackbarConfig?.reverseAnimationCurve,
+      animationDuration: currentSnackbarConfig?.animationDuration,
+      overlayBlur: currentSnackbarConfig?.overlayBlur,
+      overlayColor: currentSnackbarConfig?.overlayColor,
+      userInputForm: currentSnackbarConfig?.userInputForm,
     );
   }
 
