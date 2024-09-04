@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/Stacked-Org/services/compare/v1.5.0...v1.5.1) (2024-09-04)
+
+
+### Bug Fixes
+
+* makes WASM capable ([c3e9aeb](https://github.com/Stacked-Org/services/commit/c3e9aeb66618eb1e4dab01d5dab70fbd318708a6))
+
 # [1.5.0](https://github.com/Stacked-Org/services/compare/v1.4.0...v1.5.0) (2024-03-26)
 
 
