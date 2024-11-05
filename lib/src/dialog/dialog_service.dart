@@ -26,11 +26,9 @@ class DialogService {
     _dialogBuilders = {...?_dialogBuilders, ...builders};
   }
 
-  Map<dynamic, DialogBuilder> _customDialogBuilders =
-      Map<dynamic, DialogBuilder>();
+  Map<dynamic, DialogBuilder> _customDialogBuilders = Map<dynamic, DialogBuilder>();
 
-  @Deprecated(
-      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
+  @Deprecated('Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   get navigatorKey {
     return Get.key;
   }
@@ -47,9 +45,7 @@ class DialogService {
   )
   void registerCustomDialogBuilder({
     required dynamic variant,
-    required Widget Function(
-            BuildContext, DialogRequest, Function(DialogResponse))
-        builder,
+    required Widget Function(BuildContext, DialogRequest, Function(DialogResponse)) builder,
   }) {
     _customDialogBuilders[variant] = builder;
   }
@@ -68,6 +64,8 @@ class DialogService {
     String buttonTitle = 'Ok',
     Color? buttonTitleColor,
     bool barrierDismissible = false,
+    RouteSettings? routeSettings,
+    GlobalKey<NavigatorState>? navigatorKey,
 
     /// Indicates which [DialogPlatform] to show.
     ///
@@ -84,11 +82,11 @@ class DialogService {
         buttonTitleColor: buttonTitleColor,
         dialogPlatform: dialogPlatform,
         barrierDismissible: barrierDismissible,
+        routeSettings: routeSettings,
+        navigatorKey: navigatorKey,
       );
     } else {
-      var _dialogType = GetPlatform.isAndroid
-          ? DialogPlatform.Material
-          : DialogPlatform.Cupertino;
+      var _dialogType = GetPlatform.isAndroid ? DialogPlatform.Material : DialogPlatform.Cupertino;
       return _showDialog(
         title: title,
         description: description,
@@ -98,6 +96,8 @@ class DialogService {
         buttonTitleColor: buttonTitleColor,
         dialogPlatform: _dialogType,
         barrierDismissible: barrierDismissible,
+        routeSettings: routeSettings,
+        navigatorKey: navigatorKey,
       );
     }
   }
@@ -111,6 +111,8 @@ class DialogService {
     Color? buttonTitleColor,
     DialogPlatform dialogPlatform = DialogPlatform.Material,
     bool barrierDismissible = false,
+    RouteSettings? routeSettings,
+    GlobalKey<NavigatorState>? navigatorKey,
   }) {
     var isConfirmationDialog = cancelTitle != null;
     return Get.dialog<DialogResponse>(
@@ -153,6 +155,8 @@ class DialogService {
         ],
       ),
       barrierDismissible: barrierDismissible,
+      routeSettings: routeSettings,
+      navigatorKey: navigatorKey,
     );
   }
 
@@ -185,9 +189,10 @@ class DialogService {
     bool barrierDismissible = false,
     String barrierLabel = '',
     bool useSafeArea = true,
-    @Deprecated(
-        'Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
-    dynamic customData,
+    RouteSettings? routeSettings,
+    GlobalKey<NavigatorState>? navigatorKey,
+    RouteTransitionsBuilder? transitionBuilder,
+    @Deprecated('Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore') dynamic customData,
     R? data,
   }) {
     assert(
@@ -207,6 +212,9 @@ class DialogService {
       transitionDuration: const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
+      routeSettings: routeSettings,
+      navigatorKey: navigatorKey,
+      transitionBuilder: transitionBuilder,
       pageBuilder: (BuildContext buildContext, _, __) {
         final child = Builder(
           key: useSafeArea ? null : Key('dialog_view'),
@@ -245,6 +253,7 @@ class DialogService {
     String confirmationTitle = 'Ok',
     Color? confirmationTitleColor,
     bool barrierDismissible = false,
+    RouteSettings? routeSettings,
 
     /// Indicates which [DialogPlatform] to show.
     ///
@@ -252,15 +261,15 @@ class DialogService {
     DialogPlatform? dialogPlatform,
   }) =>
       showDialog(
-        title: title,
-        description: description,
-        buttonTitle: confirmationTitle,
-        buttonTitleColor: confirmationTitleColor,
-        cancelTitle: cancelTitle,
-        cancelTitleColor: cancelTitleColor,
-        dialogPlatform: dialogPlatform,
-        barrierDismissible: barrierDismissible,
-      );
+          title: title,
+          description: description,
+          buttonTitle: confirmationTitle,
+          buttonTitleColor: confirmationTitleColor,
+          cancelTitle: cancelTitle,
+          cancelTitleColor: cancelTitleColor,
+          dialogPlatform: dialogPlatform,
+          barrierDismissible: barrierDismissible,
+          routeSettings: routeSettings);
 
   /// Completes the dialog and passes the [response] to the caller
   void completeDialog(DialogResponse response) {
