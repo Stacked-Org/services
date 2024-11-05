@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked_services_example/ui/setup_dialog_ui.dart';
 
 import '../../app/app.locator.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked_services/stacked_services.dart';
-
 import '../../enums/dialog_type.dart';
 
 class DialogView extends StatelessWidget {
@@ -31,6 +30,7 @@ class DialogView extends StatelessWidget {
                   await _dialogService.showDialog(
                     title: 'Test Dialog Title',
                     description: 'Test Dialog Description',
+                    //routeSettings: RouteSettings(name: '/materialDialog'),
                   );
                 },
                 child: Text(
@@ -50,9 +50,10 @@ class DialogView extends StatelessWidget {
               OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showDialog(
-                    title: 'Test Dialog Title',
-                    // description: 'Test Dialog Description',
-                  );
+                      title: 'Test Dialog Title',
+                      // description: 'Test Dialog Description',
+                      routeSettings: RouteSettings(name: '/materialDialog'),
+                      navigatorKey: StackedService.navigatorKey);
                 },
                 child: Text(
                   'Show Material Dialog',
@@ -73,6 +74,7 @@ class DialogView extends StatelessWidget {
                   await _dialogService.showDialog(
                     // title: 'Test Dialog Title',
                     description: 'Test Dialog Description',
+                    routeSettings: RouteSettings(name: '/materialDialog'),
                   );
                 },
                 child: Text(
@@ -89,13 +91,23 @@ class DialogView extends StatelessWidget {
               OutlinedButton(
                 onPressed: () async {
                   await _dialogService.showCustomDialog(
-                      variant: DialogType.Basic,
-                      title: 'This is a custom UI with Text as main button',
-                      description:
-                          'Sheck out the builder in the dialog_ui_register.dart file',
-                      mainButtonTitle: 'Ok',
-                      showIconInMainButton: false,
-                      barrierDismissible: true);
+                    variant: DialogType.Basic,
+                    title: 'This is a custom UI with Text as main button',
+                    description: 'Sheck out the builder in the dialog_ui_register.dart file',
+                    mainButtonTitle: 'Ok',
+                    showIconInMainButton: false,
+                    barrierDismissible: true,
+                    routeSettings: RouteSettings(name: '/customDialogWithTransition'),
+                    transitionBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                      position: animation.drive(
+                        Tween<Offset>(
+                          begin: const Offset(1.0, 0.0),
+                          end: const Offset(0.0, 0.0),
+                        ),
+                      ),
+                      child: child,
+                    ),
+                  );
                 },
                 child: Text(
                   'Show Custom Text Dialog',
@@ -110,17 +122,15 @@ class DialogView extends StatelessWidget {
               ),
               OutlinedButton(
                 onPressed: () async {
-                  final response = await _dialogService.showCustomDialog<
-                      GenericDialogResponse, GenericDialogRequest>(
+                  final response = await _dialogService.showCustomDialog<GenericDialogResponse, GenericDialogRequest>(
                     variant: DialogType.Generic,
-                    title:
-                        'This is a custom Generic UI with Text as main button',
-                    description:
-                        'Sheck out the builder in the dialog_ui_register.dart file',
+                    title: 'This is a custom Generic UI with Text as main button',
+                    description: 'Sheck out the builder in the dialog_ui_register.dart file',
                     mainButtonTitle: 'Ok',
                     showIconInMainButton: false,
                     barrierDismissible: true,
                     data: GenericDialogRequest(),
+                    routeSettings: RouteSettings(name: '/customDialog'),
                   );
 
                   print(response?.data?.message ?? '');
@@ -134,9 +144,9 @@ class DialogView extends StatelessWidget {
                   await _dialogService.showCustomDialog(
                     variant: DialogType.Basic,
                     title: 'This is a custom UI with icon',
-                    description:
-                        'Sheck out the builder in the dialog_ui_register.dart file',
+                    description: 'Sheck out the builder in the dialog_ui_register.dart file',
                     showIconInMainButton: true,
+                    routeSettings: RouteSettings(name: '/customDialog'),
                   );
                 },
                 child: Text(
@@ -156,6 +166,7 @@ class DialogView extends StatelessWidget {
                     title: 'Test Confirmation Dialog Title',
                     description: 'Test Confirmation Dialog Description',
                     barrierDismissible: true,
+                    routeSettings: RouteSettings(name: '/materialConfirmationDialog'),
                   );
                 },
                 child: Text(
@@ -175,6 +186,7 @@ class DialogView extends StatelessWidget {
                     dialogPlatform: DialogPlatform.Cupertino,
                     title: 'Test Confirmation Dialog Title',
                     description: 'Test Dialog Description',
+                    routeSettings: RouteSettings(name: '/materialDialog'),
                   );
                 },
                 child: Text(
@@ -198,6 +210,7 @@ class DialogView extends StatelessWidget {
                     title: 'Test Confirmation Dialog Title',
                     description: 'Test Confirmation Dialog Description',
                     barrierDismissible: true,
+                    routeSettings: RouteSettings(name: '/materialConfirmationDialog'),
                   );
                 },
                 child: Text(
