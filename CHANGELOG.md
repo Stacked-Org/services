@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/Stacked-Org/services/compare/v1.5.1...v1.6.0) (2024-11-07)
+
+
+### Features
+
+* adds transition builder and routeSettings to dialog functions ([c856b6a](https://github.com/Stacked-Org/services/commit/c856b6a606d6fde61f7c90a038d2fe25449acbdc))
+
 ## [1.5.1](https://github.com/Stacked-Org/services/compare/v1.5.0...v1.5.1) (2024-09-04)
 
 
