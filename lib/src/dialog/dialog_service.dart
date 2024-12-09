@@ -26,9 +26,11 @@ class DialogService {
     _dialogBuilders = {...?_dialogBuilders, ...builders};
   }
 
-  Map<dynamic, DialogBuilder> _customDialogBuilders = Map<dynamic, DialogBuilder>();
+  Map<dynamic, DialogBuilder> _customDialogBuilders =
+      Map<dynamic, DialogBuilder>();
 
-  @Deprecated('Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
+  @Deprecated(
+      'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
   get navigatorKey {
     return Get.key;
   }
@@ -45,7 +47,9 @@ class DialogService {
   )
   void registerCustomDialogBuilder({
     required dynamic variant,
-    required Widget Function(BuildContext, DialogRequest, Function(DialogResponse)) builder,
+    required Widget Function(
+            BuildContext, DialogRequest, Function(DialogResponse))
+        builder,
   }) {
     _customDialogBuilders[variant] = builder;
   }
@@ -86,7 +90,9 @@ class DialogService {
         navigatorKey: navigatorKey,
       );
     } else {
-      var _dialogType = GetPlatform.isAndroid ? DialogPlatform.Material : DialogPlatform.Cupertino;
+      var _dialogType = GetPlatform.isAndroid
+          ? DialogPlatform.Material
+          : DialogPlatform.Cupertino;
       return _showDialog(
         title: title,
         description: description,
@@ -192,7 +198,10 @@ class DialogService {
     RouteSettings? routeSettings,
     GlobalKey<NavigatorState>? navigatorKey,
     RouteTransitionsBuilder? transitionBuilder,
-    @Deprecated('Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore') dynamic customData,
+    Duration? transitionDuration,
+    @Deprecated(
+        'Prefer to use `data` and pass in a generic type. customData doesn\'t work anymore')
+    dynamic customData,
     R? data,
   }) {
     assert(
@@ -209,7 +218,8 @@ class DialogService {
 
     return Get.generalDialog<DialogResponse<T>>(
       barrierColor: barrierColor,
-      transitionDuration: const Duration(milliseconds: 200),
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 200),
       barrierDismissible: barrierDismissible,
       barrierLabel: barrierLabel,
       routeSettings: routeSettings,
