@@ -20,16 +20,18 @@ class NavigationTransition {
 ///
 /// Uses the Get library for all navigation requirements
 class NavigationService {
-  Map<String, Transition> _transitions = {
-    Transition.fade.name: Transition.fade,
-    Transition.rightToLeft.name: Transition.rightToLeft,
-    Transition.leftToRight.name: Transition.leftToRight,
-    Transition.upToDown.name: Transition.upToDown,
-    Transition.downToUp.name: Transition.downToUp,
-    Transition.zoom.name: Transition.zoom,
-    Transition.rightToLeftWithFade.name: Transition.rightToLeftWithFade,
-    Transition.leftToRightWithFade.name: Transition.leftToRightWithFade,
-    Transition.noTransition.name: Transition.noTransition,
+  Map<String, TransitionStyle> _transitions = {
+    TransitionStyle.fade.name: TransitionStyle.fade,
+    TransitionStyle.rightToLeft.name: TransitionStyle.rightToLeft,
+    TransitionStyle.leftToRight.name: TransitionStyle.leftToRight,
+    TransitionStyle.upToDown.name: TransitionStyle.upToDown,
+    TransitionStyle.downToUp.name: TransitionStyle.downToUp,
+    TransitionStyle.zoom.name: TransitionStyle.zoom,
+    TransitionStyle.rightToLeftWithFade.name:
+        TransitionStyle.rightToLeftWithFade,
+    TransitionStyle.leftToRightWithFade.name:
+        TransitionStyle.leftToRightWithFade,
+    TransitionStyle.noTransition.name: TransitionStyle.noTransition,
   };
 
   @Deprecated(
@@ -58,7 +60,7 @@ class NavigationService {
     bool? defaultOpaqueRoute,
     Duration? defaultDurationTransition,
     bool? defaultGlobalState,
-    Transition? defaultTransitionStyle,
+    TransitionStyle? defaultTransitionStyle,
     @Deprecated(
         'Prefer to use the defaultTransitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
     String? defaultTransition,
@@ -102,8 +104,8 @@ class NavigationService {
     bool preventDuplicates = true,
     @Deprecated(
         'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    Transition? transitionClass,
-    Transition? transitionStyle,
+    TransitionStyle? transitionClass,
+    TransitionStyle? transitionStyle,
     String? routeName,
   }) {
     return G.Get.to<T?>(
@@ -151,8 +153,8 @@ class NavigationService {
     bool preventDuplicates = true,
     @Deprecated(
         'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    Transition? transitionClass,
-    Transition? transitionStyle,
+    TransitionStyle? transitionClass,
+    TransitionStyle? transitionStyle,
     String? routeName,
   }) {
     return G.Get.off<T?>(
@@ -241,8 +243,8 @@ class NavigationService {
     bool preventDuplicates = true,
     @Deprecated(
         'Prefer to use the transitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
-    Transition? transition,
-    Transition? transitionStyle,
+    TransitionStyle? transition,
+    TransitionStyle? transitionStyle,
   }) {
     return G.Get.to<T?>(
       () => view,

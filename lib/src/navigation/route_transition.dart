@@ -1,6 +1,6 @@
 import 'package:get/get.dart' as G;
 
-enum Transition {
+enum TransitionStyle {
   fade,
   rightToLeft,
   leftToRight,
@@ -12,26 +12,26 @@ enum Transition {
   zoom,
 }
 
-extension ToGetTransition on Transition {
+extension ToGetTransition on TransitionStyle {
   G.Transition get toGet {
     switch (this) {
-      case Transition.fade:
+      case TransitionStyle.fade:
         return G.Transition.fade;
-      case Transition.leftToRight:
+      case TransitionStyle.leftToRight:
         return G.Transition.leftToRight;
-      case Transition.rightToLeft:
+      case TransitionStyle.rightToLeft:
         return G.Transition.rightToLeft;
-      case Transition.upToDown:
+      case TransitionStyle.upToDown:
         return G.Transition.upToDown;
-      case Transition.downToUp:
+      case TransitionStyle.downToUp:
         return G.Transition.downToUp;
-      case Transition.zoom:
+      case TransitionStyle.zoom:
         return G.Transition.zoom;
-      case Transition.leftToRightWithFade:
+      case TransitionStyle.leftToRightWithFade:
         return G.Transition.leftToRightWithFade;
-      case Transition.rightToLeftWithFade:
+      case TransitionStyle.rightToLeftWithFade:
         return G.Transition.rightToLeftWithFade;
-      case Transition.noTransition:
+      case TransitionStyle.noTransition:
         return G.Transition.noTransition;
 
       default:

@@ -35,7 +35,7 @@ class FirstScreen extends StatelessWidget {
               child: Text("Use Fade Transition"),
               onPressed: () async {
                 await _navigationService.navigateWithTransition(SecondScreen(),
-                    transitionStyle: Transition.upToDown);
+                    transitionStyle: TransitionStyle.upToDown);
               },
             ),
             OutlinedButton(
@@ -43,7 +43,7 @@ class FirstScreen extends StatelessWidget {
               onPressed: () async {
                 await _navigationService.navigateWithTransition(
                   SecondScreen(),
-                  transitionStyle: Transition.rightToLeft,
+                  transitionStyle: TransitionStyle.rightToLeft,
                 );
               },
             ),
@@ -59,7 +59,7 @@ class FirstScreen extends StatelessWidget {
               child: Text("Use Cupertino Transition"),
               onPressed: () async {
                 await _navigationService.navigateToView(SecondScreen(),
-                    transitionStyle: Transition.zoom);
+                    transitionStyle: TransitionStyle.zoom);
               },
             ),
             OutlinedButton(
