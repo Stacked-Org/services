@@ -14,7 +14,7 @@ dependencies:
   stacked: ^3.4.0
 
   # navigation
-  get: ^4.6.6
+  get: ^4.7.3
 
   crypto: ^3.0.1
 
