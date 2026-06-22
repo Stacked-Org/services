@@ -1,4 +1,4 @@
-import 'package:get/get.dart' as G;
+import 'package:flutter/material.dart';
 
 enum Transition {
   fade,
@@ -12,30 +12,71 @@ enum Transition {
   zoom,
 }
 
-extension ToGetTransition on Transition {
-  G.Transition get toGet {
-    switch (this) {
-      case Transition.fade:
-        return G.Transition.fade;
-      case Transition.leftToRight:
-        return G.Transition.leftToRight;
-      case Transition.rightToLeft:
-        return G.Transition.rightToLeft;
-      case Transition.upToDown:
-        return G.Transition.upToDown;
-      case Transition.downToUp:
-        return G.Transition.downToUp;
-      case Transition.zoom:
-        return G.Transition.zoom;
-      case Transition.leftToRightWithFade:
-        return G.Transition.leftToRightWithFade;
-      case Transition.rightToLeftWithFade:
-        return G.Transition.rightToLeftWithFade;
-      case Transition.noTransition:
-        return G.Transition.noTransition;
+/// Applies the visual effect for [transition] to [child], driven by
+/// [animation]. This is the native (get-free) replacement for the transitions
+/// that the `get` package used to provide.
+Widget applyTransition(
+  Transition transition,
+  Animation<double> animation,
+  Curve curve,
+  Widget child,
+) {
+  final curved = CurvedAnimation(parent: animation, curve: curve);
 
-      default:
-        return G.Transition.rightToLeft;
-    }
+  Widget slide(Offset begin) => SlideTransition(
+        position: Tween<Offset>(begin: begin, end: Offset.zero).animate(curved),
+        child: child,
+      );
+
+  Widget slideWithFade(Offset begin) => FadeTransition(
+        opacity: curved,
+        child: slide(begin),
+      );
+
+  switch (transition) {
+    case Transition.fade:
+      return FadeTransition(opacity: curved, child: child);
+    case Transition.rightToLeft:
+      return slide(const Offset(1, 0));
+    case Transition.leftToRight:
+      return slide(const Offset(-1, 0));
+    case Transition.upToDown:
+      return slide(const Offset(0, -1));
+    case Transition.downToUp:
+      return slide(const Offset(0, 1));
+    case Transition.zoom:
+      return ScaleTransition(scale: curved, child: child);
+    case Transition.rightToLeftWithFade:
+      return slideWithFade(const Offset(1, 0));
+    case Transition.leftToRightWithFade:
+      return slideWithFade(const Offset(-1, 0));
+    case Transition.noTransition:
+      return child;
   }
+}
+
+/// Builds a [PageRouteBuilder] that renders [page] using the given [transition].
+///
+/// This is the native replacement for `Get.to`'s transition handling. The
+/// transition argument map convention used by named navigation lives in
+/// `RouteDataV1` (stacked) and is unaffected by this builder.
+Route<T> buildTransitionRoute<T>(
+  Widget page, {
+  required Transition transition,
+  Duration duration = const Duration(milliseconds: 300),
+  bool opaque = true,
+  bool fullscreenDialog = false,
+  Curve curve = Curves.linear,
+  RouteSettings? settings,
+}) {
+  return PageRouteBuilder<T>(
+    settings: settings,
+    opaque: opaque,
+    fullscreenDialog: fullscreenDialog,
+    transitionDuration: duration,
+    reverseTransitionDuration: duration,
+    pageBuilder: (_, __, ___) => page,
+    transitionsBuilder: (_, animation, __, child) =>
+        applyTransition(transition, animation, curve, child),
+  );
 }

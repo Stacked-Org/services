@@ -13,9 +13,6 @@ dependencies:
   stacked_shared: ^1.3.2
   stacked: ^3.4.0
 
-  # navigation
-  get: ^4.6.6
-
   crypto: ^3.0.1
 
 dev_dependencies:

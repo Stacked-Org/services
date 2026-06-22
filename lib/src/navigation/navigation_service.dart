@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' as G;
 import 'package:stacked_services/stacked_services.dart';
 
 @Deprecated(
@@ -18,9 +17,9 @@ class NavigationTransition {
 
 /// Provides a service that can be injected into the ViewModels for navigation.
 ///
-/// Uses the Get library for all navigation requirements
+/// Uses the native Flutter [Navigator] through the [StackedService.navigatorKey].
 class NavigationService {
-  Map<String, Transition> _transitions = {
+  final Map<String, Transition> _transitions = {
     Transition.fade.name: Transition.fade,
     Transition.rightToLeft.name: Transition.rightToLeft,
     Transition.leftToRight.name: Transition.leftToRight,
@@ -32,26 +31,36 @@ class NavigationService {
     Transition.noTransition.name: Transition.noTransition,
   };
 
+  /// Returns the navigator state for the given nested navigation [id], or the
+  /// root navigator when [id] is null.
+  NavigatorState? _navigator([int? id]) => (id != null
+          ? StackedService.nestedNavigationKey(id)
+          : StackedService.navigatorKey)
+      ?.currentState;
+
   @Deprecated(
       'Prefer to use the StackedServices.navigatorKey instead of using this key. This will be removed in the next major version update for stacked.')
-  GlobalKey<NavigatorState>? get navigatorKey => G.Get.key;
+  GlobalKey<NavigatorState>? get navigatorKey => StackedService.navigatorKey;
 
   /// Returns the previous route
-  String get previousRoute => G.Get.previousRoute;
+  String get previousRoute => StackedService.routing.previous;
 
   /// Returns the current route
-  String get currentRoute => G.Get.currentRoute;
+  String get currentRoute => StackedService.routing.current;
 
   /// Returns the current arguments
-  dynamic get currentArguments => G.Get.arguments;
+  dynamic get currentArguments => StackedService.routing.args;
 
   /// Creates and/or returns a new navigator key based on the index passed in
   @Deprecated(
       'Prefer to use the StackedServices.nestedNavigationKey instead of using this property. This will be removed in the next major version update for stacked.')
   GlobalKey<NavigatorState>? nestedNavigationKey(int index) =>
-      G.Get.nestedKey(index);
+      StackedService.nestedNavigationKey(index);
 
   /// Allows you to configure the default behaviour for navigation.
+  ///
+  /// [enableLog] and [defaultGlobalState] were specific to the `get` package and
+  /// are now no-ops, kept for backwards compatibility.
   void config({
     bool? enableLog,
     bool? defaultPopGesture,
@@ -63,14 +72,18 @@ class NavigationService {
         'Prefer to use the defaultTransitionStyle instead of using this property. This will be removed in the next major version update for stacked.')
     String? defaultTransition,
   }) {
-    G.Get.config(
-        enableLog: enableLog,
-        defaultPopGesture: defaultPopGesture,
-        defaultOpaqueRoute: defaultOpaqueRoute,
-        defaultDurationTransition: defaultDurationTransition,
-        defaultGlobalState: defaultGlobalState,
-        defaultTransition: defaultTransitionStyle?.toGet ??
-            _getTransitionOrDefault(defaultTransition!));
+    final config = StackedService.navigationConfig;
+    if (defaultPopGesture != null) config.defaultPopGesture = defaultPopGesture;
+    if (defaultOpaqueRoute != null) {
+      config.defaultOpaqueRoute = defaultOpaqueRoute;
+    }
+    if (defaultDurationTransition != null) {
+      config.defaultDuration = defaultDurationTransition;
+    }
+    config.defaultTransition = defaultTransitionStyle ??
+        (defaultTransition != null
+            ? _getTransitionOrDefault(defaultTransition)
+            : config.defaultTransition);
   }
 
   /// Pushes [page] onto the navigation stack. This uses the [page] itself (Widget) instead
@@ -78,10 +91,7 @@ class NavigationService {
   ///
   /// [id] is for when you are using nested navigation, as explained in documentation.
   ///
-  /// If you want the same behavior of ios that pops a route when the user drag, you can set [popGesture] to true.
-  ///
-  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
-  /// set to false.
+  /// [popGesture] is kept for backwards compatibility and is currently a no-op.
   ///
   /// [duration] transition duration.
   ///
@@ -106,20 +116,23 @@ class NavigationService {
     Transition? transitionStyle,
     String? routeName,
   }) {
-    return G.Get.to<T?>(
-      () => page,
-      transition: transitionStyle?.toGet ??
-          transitionClass?.toGet ??
+    if (preventDuplicates &&
+        routeName != null &&
+        routeName == StackedService.routing.current) {
+      return null;
+    }
+
+    return _navigator(id)?.push<T?>(buildTransitionRoute<T?>(
+      page,
+      transition: transitionStyle ??
+          transitionClass ??
           _getTransitionOrDefault(transition),
-      duration: duration ?? G.Get.defaultTransitionDuration,
-      popGesture: popGesture ?? G.Get.isPopGestureEnable,
-      opaque: opaque ?? G.Get.isOpaqueRouteDefault,
-      id: id,
-      preventDuplicates: preventDuplicates,
-      curve: curve,
+      duration: duration ?? StackedService.navigationConfig.defaultDuration,
+      opaque: opaque ?? StackedService.navigationConfig.defaultOpaqueRoute,
       fullscreenDialog: fullscreenDialog,
-      routeName: routeName,
-    );
+      curve: curve ?? Curves.linear,
+      settings: routeName != null ? RouteSettings(name: routeName) : null,
+    ));
   }
 
   /// Replaces current view in the navigation stack. This uses the [page] itself (Widget) instead
@@ -127,10 +140,7 @@ class NavigationService {
   ///
   /// [id] is for when you are using nested navigation, as explained in documentation.
   ///
-  /// If you want the same behavior of ios that pops a route when the user drag, you can set [popGesture] to true.
-  ///
-  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
-  /// set to false.
+  /// [popGesture] is kept for backwards compatibility and is currently a no-op.
   ///
   /// [duration] transition duration.
   ///
@@ -155,20 +165,18 @@ class NavigationService {
     Transition? transitionStyle,
     String? routeName,
   }) {
-    return G.Get.off<T?>(
-      () => page,
-      transition: transitionStyle?.toGet ??
-          transitionClass?.toGet ??
+    return _navigator(id)
+        ?.pushReplacement<T?, dynamic>(buildTransitionRoute<T?>(
+      page,
+      transition: transitionStyle ??
+          transitionClass ??
           _getTransitionOrDefault(transition),
-      duration: duration ?? G.Get.defaultTransitionDuration,
-      popGesture: popGesture ?? G.Get.isPopGestureEnable,
-      opaque: opaque ?? G.Get.isOpaqueRouteDefault,
-      id: id,
-      preventDuplicates: preventDuplicates,
-      curve: curve,
+      duration: duration ?? StackedService.navigationConfig.defaultDuration,
+      opaque: opaque ?? StackedService.navigationConfig.defaultOpaqueRoute,
       fullscreenDialog: fullscreenDialog,
-      routeName: routeName,
-    );
+      curve: curve ?? Curves.linear,
+      settings: routeName != null ? RouteSettings(name: routeName) : null,
+    ));
   }
 
   /// Pops the current scope and indicates if you can pop again
@@ -176,20 +184,24 @@ class NavigationService {
   /// [result] is the data that will returned to the previous route
   /// you can use this feature to exchange data between two routes
   bool back<T>({dynamic result, int? id}) {
-    G.Get.back<T>(result: result, id: id);
-    return G.Get.key.currentState?.canPop() ?? false;
+    final navigator = _navigator(id);
+    navigator?.pop<T>(result);
+    return navigator?.canPop() ?? false;
   }
 
   /// Pops the back stack until the predicate is satisfied
   ///
   /// [id] is for when you are using nested navigation, as explained in documentation.
   void popUntil(RoutePredicate predicate, {int? id}) {
-    G.Get.until(predicate, id: id);
+    _navigator(id)?.popUntil(predicate);
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
   void popRepeated(int popTimes) {
-    G.Get.close(popTimes);
+    final navigator = _navigator();
+    for (var i = 0; i < popTimes; i++) {
+      navigator?.pop();
+    }
   }
 
   /// Pushes [routeName] onto the navigation stack
@@ -206,14 +218,15 @@ class NavigationService {
     Map<String, String>? parameters,
     RouteTransitionsBuilder? transition,
   }) {
-    return G.Get.toNamed<T?>(
-      routeName,
+    if (preventDuplicates && routeName == StackedService.routing.current) {
+      return null;
+    }
+
+    return _navigator(id)?.pushNamed<T?>(
+      _routeNameWithParameters(routeName, parameters),
       arguments: transition != null
           ? {'arguments': arguments, 'transition': transition}
           : arguments,
-      id: id,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
     );
   }
 
@@ -221,10 +234,7 @@ class NavigationService {
   ///
   /// [id] is for when you are using nested navigation, as explained in documentation.
   ///
-  /// If you want the same behavior of ios that pops a route when the user drag, you can set [popGesture] to true.
-  ///
-  /// [preventDuplicates] will prevent you from pushing a route that you already in, if you want to push anyway,
-  /// set to false.
+  /// [popGesture] is kept for backwards compatibility and is currently a no-op.
   ///
   /// [duration] transition duration.
   ///
@@ -244,18 +254,17 @@ class NavigationService {
     Transition? transition,
     Transition? transitionStyle,
   }) {
-    return G.Get.to<T?>(
-      () => view,
-      arguments: arguments,
-      id: id,
-      opaque: opaque,
-      preventDuplicates: preventDuplicates,
-      curve: curve,
-      duration: duration,
+    return _navigator(id)?.push<T?>(buildTransitionRoute<T?>(
+      view,
+      transition: transitionStyle ??
+          transition ??
+          StackedService.navigationConfig.defaultTransition,
+      duration: duration ?? StackedService.navigationConfig.defaultDuration,
+      opaque: opaque ?? StackedService.navigationConfig.defaultOpaqueRoute,
       fullscreenDialog: fullscreenDialog,
-      popGesture: popGesture,
-      transition: transitionStyle?.toGet ?? transition?.toGet,
-    );
+      curve: curve ?? Curves.linear,
+      settings: RouteSettings(arguments: arguments),
+    ));
   }
 
   /// Replaces the current route with the [routeName]
@@ -272,14 +281,15 @@ class NavigationService {
     Map<String, String>? parameters,
     RouteTransitionsBuilder? transition,
   }) {
-    return G.Get.offNamed<T?>(
-      routeName,
+    if (preventDuplicates && routeName == StackedService.routing.current) {
+      return null;
+    }
+
+    return _navigator(id)?.pushReplacementNamed<T?, dynamic>(
+      _routeNameWithParameters(routeName, parameters),
       arguments: transition != null
           ? {'arguments': arguments, 'transition': transition}
           : arguments,
-      id: id,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
     );
   }
 
@@ -292,11 +302,10 @@ class NavigationService {
     int? id,
     Map<String, String>? parameters,
   }) {
-    return G.Get.offAllNamed<T?>(
-      routeName,
+    return _navigator(id)?.pushNamedAndRemoveUntil<T?>(
+      _routeNameWithParameters(routeName, parameters),
+      (route) => false,
       arguments: arguments,
-      id: id,
-      parameters: parameters,
     );
   }
 
@@ -306,10 +315,15 @@ class NavigationService {
     dynamic arguments,
     int? id,
   }) {
-    return G.Get.offAll<T?>(
-      view,
-      arguments: arguments,
-      id: id,
+    return _navigator(id)?.pushAndRemoveUntil<T?>(
+      buildTransitionRoute<T?>(
+        view,
+        transition: StackedService.navigationConfig.defaultTransition,
+        duration: StackedService.navigationConfig.defaultDuration,
+        opaque: StackedService.navigationConfig.defaultOpaqueRoute,
+        settings: RouteSettings(arguments: arguments),
+      ),
+      (route) => false,
     );
   }
 
@@ -352,11 +366,10 @@ class NavigationService {
   /// [id] is for when you are using nested navigation, as explained in documentation.
   Future<T?>? pushNamedAndRemoveUntil<T>(String routeName,
       {RoutePredicate? predicate, dynamic arguments, int? id}) {
-    return G.Get.offAllNamed<T?>(
+    return _navigator(id)?.pushNamedAndRemoveUntil<T?>(
       routeName,
-      predicate: predicate,
+      predicate ?? (route) => false,
       arguments: arguments,
-      id: id,
     );
   }
 
@@ -366,8 +379,19 @@ class NavigationService {
         ?.popUntil((Route route) => route.isFirst);
   }
 
-  G.Transition? _getTransitionOrDefault(String transition) {
-    String _transition = transition.toLowerCase();
-    return _transitions[_transition]?.toGet ?? G.Get.defaultTransition;
+  /// Folds [parameters] into [routeName] as a query string, matching the
+  /// behaviour `get` used for named navigation with parameters.
+  String _routeNameWithParameters(
+    String routeName,
+    Map<String, String>? parameters,
+  ) {
+    if (parameters == null) return routeName;
+    return Uri(path: routeName, queryParameters: parameters).toString();
+  }
+
+  Transition _getTransitionOrDefault(String transition) {
+    final _transition = transition.toLowerCase();
+    return _transitions[_transition] ??
+        StackedService.navigationConfig.defaultTransition;
   }
 }

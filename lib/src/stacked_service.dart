@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'navigation/route_observer.dart';
+import 'navigation/stacked_routing.dart';
 
 /// This service exposes properties that is required to be set before any of the services can be used
 class StackedService {
   const StackedService._();
 
-  /// Returns the [Get.key] value to be set in the applications navigation
-  static GlobalKey<NavigatorState>? get navigatorKey => Get.key;
+  static final GlobalKey<NavigatorState> _navigatorKey =
+      GlobalKey<NavigatorState>();
 
-  /// Creates and/or returns a new navigator key based on the index passed in
+  /// The navigation key used by the application's [MaterialApp].
+  static GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
+
+  static final Map<int, GlobalKey<NavigatorState>> _nestedNavigationKeys = {};
+
+  /// Creates and/or returns a navigator key based on the index passed in
   static GlobalKey<NavigatorState>? nestedNavigationKey(int index) =>
-      Get.nestedKey(index);
+      _nestedNavigationKeys.putIfAbsent(
+          index, () => GlobalKey<NavigatorState>());
 
-  /// Returns the [GetObserver] to be passed through navigatorObservers in MaterialApp to use all the functionalities
-  static NavigatorObserver get routeObserver => StackObserver();
+  /// The routing state maintained by [routeObserver]. Native replacement for
+  /// `Get.routing`.
+  static final StackedRouting routing = StackedRouting();
+
+  /// Default navigation behaviour, configured through `NavigationService.config`.
+  static final StackedNavigationConfig navigationConfig =
+      StackedNavigationConfig();
+
+  /// Returns the [NavigatorObserver] to be passed through navigatorObservers in
+  /// MaterialApp to keep the routing state up to date.
+  static NavigatorObserver get routeObserver => StackObserver(routing: routing);
 }

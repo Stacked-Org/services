@@ -33,10 +33,10 @@ completer(DialogResponse(...));
 
 The following services are included in the package
 
-- **NavigationService:** Makes use of the [Get](https://pub.dev/packages/get) package to expose basic navigation functionalities
-- **DialogService**: Makes use of the [Get](https://pub.dev/packages/get) package to expose functionality that allows the dev to show dialogs from the ViewModels
-- **SnackbarService**: Makes use of the [Get](https://pub.dev/packages/get) to expose the snack bar functionality to devs.
-- **BottomSheetService**: Makes use of the [Get](https://pub.dev/packages/get) to expose the bottom sheet functionality.
+- **NavigationService:** Exposes basic navigation functionalities using the native Flutter [Navigator] through a global navigator key
+- **DialogService**: Exposes functionality that allows the dev to show dialogs from the ViewModels
+- **SnackbarService**: Exposes the snack bar functionality to devs
+- **BottomSheetService**: Exposes the bottom sheet functionality
 
 The services can be registered with get_it normally as you would usually
 

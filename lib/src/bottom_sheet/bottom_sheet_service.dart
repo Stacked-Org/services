@@ -3,9 +3,9 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:stacked_services/src/models/overlay_request.dart';
 import 'package:stacked_services/src/models/overlay_response.dart';
+import 'package:stacked_services/src/stacked_service.dart';
 
 import 'bottom_sheet_ui.dart';
 
@@ -37,19 +37,10 @@ class BottomSheetService {
     bool useRootNavigator = false,
     double elevation = 1,
   }) {
-    return Get.bottomSheet<SheetResponse?>(
-      Material(
-        type: MaterialType.transparency,
-        child: GeneralBottomSheet(
-          title: title,
-          description: description ?? '',
-          confirmButtonTitle: confirmButtonTitle,
-          cancelButtonTitle: cancelButtonTitle,
-          onConfirmTapped: () => completeSheet(SheetResponse(confirmed: true)),
-          onCancelTapped: () => completeSheet(SheetResponse(confirmed: false)),
-        ),
-      ),
-      backgroundColor: Theme.of(Get.context!).brightness == Brightness.light
+    final context = StackedService.navigatorKey!.currentContext!;
+    return showModalBottomSheet<SheetResponse?>(
+      context: context,
+      backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Colors.white
           : Colors.grey[800],
       elevation: elevation,
@@ -62,15 +53,24 @@ class BottomSheetService {
       isDismissible: barrierDismissible,
       isScrollControlled: isScrollControlled,
       enableDrag: barrierDismissible && enableDrag,
-      exitBottomSheetDuration: exitBottomSheetDuration,
-      enterBottomSheetDuration: enterBottomSheetDuration,
-      ignoreSafeArea: ignoreSafeArea,
-      settings: RouteSettings(
+      useSafeArea: !(ignoreSafeArea ?? true),
+      useRootNavigator: useRootNavigator,
+      routeSettings: RouteSettings(
           name: 'general_${_hashConcateator([
             title,
             description,
           ])}'),
-      useRootNavigator: useRootNavigator,
+      builder: (_) => Material(
+        type: MaterialType.transparency,
+        child: GeneralBottomSheet(
+          title: title,
+          description: description ?? '',
+          confirmButtonTitle: confirmButtonTitle,
+          cancelButtonTitle: cancelButtonTitle,
+          onConfirmTapped: () => completeSheet(SheetResponse(confirmed: true)),
+          onCancelTapped: () => completeSheet(SheetResponse(confirmed: false)),
+        ),
+      ),
     );
   }
 
@@ -126,11 +126,26 @@ class BottomSheetService {
 
     final sheetBuilder = _sheetBuilders![variant];
 
-    return Get.bottomSheet<SheetResponse<T>>(
-      Material(
+    return showModalBottomSheet<SheetResponse<T>>(
+      context: StackedService.navigatorKey!.currentContext!,
+      barrierColor: barrierColor,
+      elevation: elevation,
+      isDismissible: barrierDismissible,
+      isScrollControlled: isScrollControlled,
+      enableDrag: barrierDismissible && enableDrag,
+      useSafeArea: !(ignoreSafeArea ?? true),
+      useRootNavigator: useRootNavigator,
+      routeSettings: RouteSettings(
+          name: '$variant\_${_hashConcateator([
+            title,
+            description,
+            mainButtonTitle,
+            secondaryButtonTitle,
+          ])}'),
+      builder: (sheetContext) => Material(
         type: MaterialType.transparency,
         child: sheetBuilder!(
-          Get.context!,
+          sheetContext,
           SheetRequest<R>(
             title: title,
             description: description,
@@ -151,31 +166,15 @@ class BottomSheetService {
           completeSheet,
         ),
       ),
-      barrierColor: barrierColor,
-      elevation: elevation,
-      isDismissible: barrierDismissible,
-      isScrollControlled: isScrollControlled,
-      enableDrag: barrierDismissible && enableDrag,
-      exitBottomSheetDuration: exitBottomSheetDuration,
-      enterBottomSheetDuration: enterBottomSheetDuration,
-      ignoreSafeArea: ignoreSafeArea,
-      settings: RouteSettings(
-          name: '$variant\_${_hashConcateator([
-            title,
-            description,
-            mainButtonTitle,
-            secondaryButtonTitle,
-          ])}'),
-      useRootNavigator: useRootNavigator,
     );
   }
 
   /// Check if bottomsheet is open
-  bool? get isBottomSheetOpen => Get.isBottomSheetOpen;
+  bool? get isBottomSheetOpen => StackedService.routing.isBottomSheet;
 
   /// Completes the dialog and passes the [response] to the caller
   void completeSheet(SheetResponse response) {
-    Get.back(result: response);
+    StackedService.navigatorKey?.currentState?.pop(response);
   }
 }
 

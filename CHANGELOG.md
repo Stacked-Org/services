@@ -1,3 +1,16 @@
+# Unreleased
+
+### Breaking Changes
+
+* **Removes the `get` dependency.** All navigation, dialog, bottom sheet and snackbar
+  functionality is now implemented with the native Flutter `Navigator`, `showGeneralDialog`,
+  `showModalBottomSheet` and an `Overlay`-based snackbar (vendored from `get`, MIT licensed).
+  The public API of the services is preserved. Notable behaviour notes:
+  * `StackedService.navigatorKey` is now an owned `GlobalKey<NavigatorState>` instead of `Get.key`.
+  * `NavigationService.config`'s `enableLog` and `defaultGlobalState` parameters are now no-ops.
+  * `popGesture` and the bottom sheet `enterBottomSheetDuration` / `exitBottomSheetDuration`
+    parameters are kept for compatibility but are currently no-ops.
+
 # [1.6.0](https://github.com/Stacked-Org/services/compare/v1.5.1...v1.6.0) (2024-11-07)
 
 

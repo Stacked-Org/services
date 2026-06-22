@@ -6,6 +6,7 @@ export 'src/models/overlay_request.dart';
 export 'src/models/overlay_response.dart';
 export 'src/navigation/navigation_service.dart';
 export 'src/navigation/route_transition.dart';
+export 'src/navigation/stacked_routing.dart';
 export 'src/navigation/router_service.dart';
 export 'src/snackbar/snackbar_config.dart';
 export 'src/snackbar/snackbar_service.dart';

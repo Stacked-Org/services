@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:stacked_shared/stacked_shared.dart' as sc;
 import 'package:stacked_services/src/exceptions/custom_snackbar_exception.dart';
 import 'package:stacked_services/src/snackbar/snackbar_config.dart';
 
 import 'stacked_snackbar_customizations.dart';
+import 'vendored/stacked_snackbar.dart';
+import 'vendored/stacked_snackbar_controller.dart';
 
 /// A service that allows the user to show the snackbar from a ViewModel
 class SnackbarService {
@@ -22,7 +23,7 @@ class SnackbarService {
   SnackbarConfig? _snackbarConfig;
 
   /// Checks if there is a snackbar open
-  bool? get isOpen => Get.isSnackbarOpen;
+  bool? get isOpen => StackedSnackbarController.isSnackbarBeingShown;
 
   /// Saves the [config] to be used for the [showSnackbar] function
   void registerSnackbarConfig(SnackbarConfig config) =>
@@ -49,7 +50,7 @@ class SnackbarService {
   }
 
   /// Check if snackbar is open
-  bool get isSnackbarOpen => Get.isSnackbarOpen;
+  bool get isSnackbarOpen => StackedSnackbarController.isSnackbarBeingShown;
 
   /// Shows a snack bar with the details passed in
   void showSnackbar({
@@ -66,9 +67,7 @@ class SnackbarService {
       config: _snackbarConfig,
     );
 
-    Get.snackbar(
-      title,
-      message,
+    StackedSnackbar(
       titleText: title.isNotEmpty
           ? Text(
               title,
@@ -97,39 +96,43 @@ class SnackbarService {
               textAlign: _snackbarConfig?.messageTextAlign ?? TextAlign.left,
             )
           : SizedBox.shrink(),
-      shouldIconPulse: _snackbarConfig?.shouldIconPulse,
+      shouldIconPulse: _snackbarConfig?.shouldIconPulse ?? true,
       onTap: onTap,
-      barBlur: _snackbarConfig?.barBlur,
+      barBlur: _snackbarConfig?.barBlur ?? 7.0,
       isDismissible: _snackbarConfig?.isDismissible ?? true,
-      duration: duration ?? _snackbarConfig?.duration,
-      snackPosition: _snackbarConfig?.snackPosition.toGet,
-      backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800],
+      duration:
+          duration ?? _snackbarConfig?.duration ?? const Duration(seconds: 3),
+      snackPosition: _snackbarConfig?.snackPosition ?? SnackPosition.TOP,
+      backgroundColor: _snackbarConfig?.backgroundColor ?? Colors.grey[800]!,
       margin: _snackbarConfig?.margin ??
           const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
       mainButton: mainButtonWidget,
       icon: _snackbarConfig?.icon,
       maxWidth: _snackbarConfig?.maxWidth,
-      padding: _snackbarConfig?.padding,
-      borderRadius: _snackbarConfig?.borderRadius,
+      padding: _snackbarConfig?.padding ?? const EdgeInsets.all(16),
+      borderRadius: _snackbarConfig?.borderRadius ?? 15,
       borderColor: _snackbarConfig?.borderColor,
       borderWidth: _snackbarConfig?.borderWidth,
       leftBarIndicatorColor: _snackbarConfig?.leftBarIndicatorColor,
       boxShadows: _snackbarConfig?.boxShadows,
       backgroundGradient: _snackbarConfig?.backgroundGradient,
       dismissDirection: _snackbarConfig?.dismissDirection,
-      showProgressIndicator: _snackbarConfig?.showProgressIndicator,
+      showProgressIndicator: _snackbarConfig?.showProgressIndicator ?? false,
       progressIndicatorController: _snackbarConfig?.progressIndicatorController,
       progressIndicatorBackgroundColor:
           _snackbarConfig?.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: _snackbarConfig?.progressIndicatorValueColor,
-      snackStyle: _snackbarConfig?.snackStyle.toGet,
-      forwardAnimationCurve: _snackbarConfig?.forwardAnimationCurve,
-      reverseAnimationCurve: _snackbarConfig?.reverseAnimationCurve,
-      animationDuration: _snackbarConfig?.animationDuration,
-      overlayBlur: _snackbarConfig?.overlayBlur,
-      overlayColor: _snackbarConfig?.overlayColor,
+      snackStyle: _snackbarConfig?.snackStyle ?? SnackStyle.FLOATING,
+      forwardAnimationCurve:
+          _snackbarConfig?.forwardAnimationCurve ?? Curves.easeOutCirc,
+      reverseAnimationCurve:
+          _snackbarConfig?.reverseAnimationCurve ?? Curves.easeOutCirc,
+      animationDuration:
+          _snackbarConfig?.animationDuration ?? const Duration(seconds: 1),
+      overlayBlur: _snackbarConfig?.overlayBlur ?? 0.0,
+      overlayColor: _snackbarConfig?.overlayColor ?? Colors.transparent,
       userInputForm: _snackbarConfig?.userInputForm,
-    );
+    ).show();
   }
 
   Future? showCustomSnackBar({
@@ -175,7 +178,7 @@ class SnackbarService {
             config: snackbarConfig,
           );
 
-    final getBar = GetSnackBar(
+    final getBar = StackedSnackbar(
       key: Key('snackbar_view'),
       titleText: title != null
           ? Text(
@@ -229,8 +232,8 @@ class SnackbarService {
       progressIndicatorBackgroundColor:
           snackbarConfig.progressIndicatorBackgroundColor,
       progressIndicatorValueColor: snackbarConfig.progressIndicatorValueColor,
-      snackPosition: snackbarConfig.snackPosition.toGet,
-      snackStyle: snackbarConfig.snackStyle.toGet,
+      snackPosition: snackbarConfig.snackPosition,
+      snackStyle: snackbarConfig.snackStyle,
       forwardAnimationCurve: snackbarConfig.forwardAnimationCurve,
       reverseAnimationCurve: snackbarConfig.reverseAnimationCurve,
       animationDuration: snackbarConfig.animationDuration,
@@ -255,7 +258,7 @@ class SnackbarService {
   /// Close the current snack bar
   Future<void> closeSnackbar() async {
     if (isSnackbarOpen) {
-      return Get.closeCurrentSnackbar();
+      return StackedSnackbarController.closeCurrentSnackbar();
     }
   }
 

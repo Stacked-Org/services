@@ -30,6 +30,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   stacked_generator:
   build_runner: ^2.1.11
 

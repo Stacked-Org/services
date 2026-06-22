@@ -79,7 +79,7 @@ class _FloatingBoxBottomSheet extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: WidgetStateProperty.all<Color>(
                     Theme.of(context).primaryColor,
                   ),
                 ),
@@ -167,7 +167,7 @@ class GenericBottomSheet extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: WidgetStateProperty.all<Color>(
                     Theme.of(context).primaryColor,
                   ),
                 ),
