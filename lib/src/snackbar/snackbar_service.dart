@@ -244,10 +244,13 @@ class SnackbarService {
       return getBar.show();
     } else {
       Completer completer = Completer();
-      sc.ambiguate(WidgetsBinding.instance)!.addPostFrameCallback((_) async {
+      final binding = sc.ambiguate(WidgetsBinding.instance)!;
+      binding.addPostFrameCallback((_) async {
         final result = getBar.show();
         completer.complete(result);
       });
+      // Schedule a frame so the callback also fires when the binding is idle.
+      binding.ensureVisualUpdate();
       return completer.future;
     }
   }

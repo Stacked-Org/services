@@ -93,12 +93,16 @@ class DialogView extends StatelessWidget {
                   await _dialogService.showCustomDialog(
                     variant: DialogType.Basic,
                     title: 'This is a custom UI with Text as main button',
-                    description: 'Sheck out the builder in the dialog_ui_register.dart file',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
                     mainButtonTitle: 'Ok',
                     showIconInMainButton: false,
                     barrierDismissible: true,
-                    routeSettings: RouteSettings(name: '/customDialogWithTransition'),
-                    transitionBuilder: (context, animation, secondaryAnimation, child) => SlideTransition(
+                    routeSettings:
+                        RouteSettings(name: '/customDialogWithTransition'),
+                    transitionBuilder:
+                        (context, animation, secondaryAnimation, child) =>
+                            SlideTransition(
                       position: animation.drive(
                         Tween<Offset>(
                           begin: const Offset(1.0, 0.0),
@@ -122,10 +126,13 @@ class DialogView extends StatelessWidget {
               ),
               OutlinedButton(
                 onPressed: () async {
-                  final response = await _dialogService.showCustomDialog<GenericDialogResponse, GenericDialogRequest>(
+                  final response = await _dialogService.showCustomDialog<
+                      GenericDialogResponse, GenericDialogRequest>(
                     variant: DialogType.Generic,
-                    title: 'This is a custom Generic UI with Text as main button',
-                    description: 'Sheck out the builder in the dialog_ui_register.dart file',
+                    title:
+                        'This is a custom Generic UI with Text as main button',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
                     mainButtonTitle: 'Ok',
                     showIconInMainButton: false,
                     barrierDismissible: true,
@@ -144,7 +151,8 @@ class DialogView extends StatelessWidget {
                   await _dialogService.showCustomDialog(
                     variant: DialogType.Basic,
                     title: 'This is a custom UI with icon',
-                    description: 'Sheck out the builder in the dialog_ui_register.dart file',
+                    description:
+                        'Sheck out the builder in the dialog_ui_register.dart file',
                     showIconInMainButton: true,
                     routeSettings: RouteSettings(name: '/customDialog'),
                   );
@@ -166,7 +174,8 @@ class DialogView extends StatelessWidget {
                     title: 'Test Confirmation Dialog Title',
                     description: 'Test Confirmation Dialog Description',
                     barrierDismissible: true,
-                    routeSettings: RouteSettings(name: '/materialConfirmationDialog'),
+                    routeSettings:
+                        RouteSettings(name: '/materialConfirmationDialog'),
                   );
                 },
                 child: Text(
@@ -210,7 +219,8 @@ class DialogView extends StatelessWidget {
                     title: 'Test Confirmation Dialog Title',
                     description: 'Test Confirmation Dialog Description',
                     barrierDismissible: true,
-                    routeSettings: RouteSettings(name: '/materialConfirmationDialog'),
+                    routeSettings:
+                        RouteSettings(name: '/materialConfirmationDialog'),
                   );
                 },
                 child: Text(
