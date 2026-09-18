@@ -249,14 +249,7 @@ class SnackbarService {
         final result = getBar.show();
         completer.complete(result);
       });
-      // addPostFrameCallback only runs the next time a frame is produced. If
-      // this is called outside of the build/layout/paint pipeline (e.g. after
-      // an `await` with no pending frame) no frame is scheduled and the
-      // callback above would never fire, so the snackbar would silently
-      // never show. ensureVisualUpdate() schedules a frame when the binding
-      // is idle, and is a no-op while a frame is already underway, so the
-      // existing instantInit=false behaviour (deferring until after the
-      // current build) is unchanged.
+      // Schedule a frame so the callback also fires when the binding is idle.
       binding.ensureVisualUpdate();
       return completer.future;
     }
